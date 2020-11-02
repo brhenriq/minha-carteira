@@ -1,10 +1,9 @@
 const express = require('express');
+const routes = require('./routes');
+
 const server = express();
 
-server.get('/', function(req, res){
-  res.send('Ok');
-});
+server.use(express.json());
+server.use(routes);
 
-server.listen(3333, function(){
-  console.log("Ok");
-});
+server.listen(3333);
