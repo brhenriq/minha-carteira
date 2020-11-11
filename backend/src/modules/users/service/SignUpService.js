@@ -1,6 +1,7 @@
 class SignUpService {
-  constructor(usersRepository) {
+  constructor(usersRepository, cryptProvider) {
     this.usersRepository = usersRepository;
+    this.cryptProvider = cryptProvider;
   }
 
   async execute(data) {
@@ -11,7 +12,13 @@ class SignUpService {
     if (emailAlreadyUsed)
       return { error: 'email not avaiable. Choise another!' };
 
-    const user = await this.usersRepository.add({ name, email, password });
+    const passwordHashed = await this.cryptProvider.hash(password, 10);
+
+    const user = await this.usersRepository.add({
+      name,
+      email,
+      password: passwordHashed,
+    });
 
     return user;
   }

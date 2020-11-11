@@ -15,9 +15,9 @@ class UsersRepository {
       ...user.ops[0],
     };
 
-    delete userFormatted.ops[0].password;
+    delete userFormatted.password;
     // eslint-disable-next-line
-    delete userFormatted.ops[0]._id;
+    delete userFormatted._id;
 
     return userFormatted;
   }
