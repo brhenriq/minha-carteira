@@ -1,5 +1,6 @@
 const MovimentRegister = require('../service/MovimentRegister');
 const MovimentListByUser = require('../service/MovimentListByUser');
+const MovimentShow = require('../service/MovimentShow');
 const FinanceRepository = require('../repositories/FinanceRepository');
 
 class MovimentController {
@@ -31,6 +32,18 @@ class MovimentController {
     const { type, frequency } = req.query;
 
     const finance = await movimentListByUser.execute(user_id, type, frequency);
+
+    res.json(finance);
+  }
+
+  async show(req, res) {
+    const financeRepository = new FinanceRepository();
+    const movimentShow = new MovimentShow(financeRepository);
+
+    const user_id = req.user.id.sub;
+    const moviment_id = req.params.id;
+
+    const finance = await movimentShow.execute(user_id, moviment_id);
 
     res.json(finance);
   }
