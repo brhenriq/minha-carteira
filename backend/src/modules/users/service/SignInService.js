@@ -21,7 +21,7 @@ class SignInService {
 
     delete user.password;
 
-    const token = this.tokenPrivider.genarate(user.id);
+    const token = await this.tokenPrivider.genarate(user.id);
 
     return {
       user,
