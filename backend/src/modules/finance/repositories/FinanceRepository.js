@@ -36,13 +36,10 @@ class FinanceRepository {
     return moviment;
   }
 
-  async movimentRemove(user_id, id) {
-    const moviment = await mongo.collection('moviments').deleteOne({
-      _id: mongoose.Types.ObjectId(id),
-      user_id: { $eq: user_id },
-    });
-
-    return moviment;
+  async movimentRemove(id) {
+    await mongo
+      .collection('moviments')
+      .deleteOne({ _id: mongoose.Types.ObjectId(id) });
   }
 }
 

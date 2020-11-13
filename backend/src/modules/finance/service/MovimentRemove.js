@@ -3,18 +3,17 @@ class MovimentRemove {
     this.financeRepository = financeRepository;
   }
 
-  async execute(user_id, moviment_id) {
-    const moviment = await this.financeRepository.movimentRemove(
-      user_id,
-      moviment_id,
-    );
+  async execute(movimentId, userId) {
+    const moviment = await this.financeRepository.movimentById(movimentId);
 
-    if (!moviment) return { mesage: 'error deleting the moviment' };
+    if (!moviment) return { error: 'this moviment not exits!' };
 
-    if (moviment.result.n !== 1)
-      return { mesage: "you don't have permission to delete this moviment" };
+    if (moviment.user_id !== userId)
+      return { message: "you don't have permission to show this moviment" };
 
-    return moviment;
+    await this.financeRepository.movimentRemove(movimentId);
+
+    return null;
   }
 }
 

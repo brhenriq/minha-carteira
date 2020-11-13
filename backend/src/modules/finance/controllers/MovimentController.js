@@ -50,15 +50,17 @@ class MovimentController {
   }
 
   async delete(req, res) {
-    const financeRepository = new FinanceRepository();
-    const movimentRemove = new MovimentRemove(financeRepository);
+    const repository = new FinanceRepository();
+    const movimentRemove = new MovimentRemove(repository);
 
-    const user_id = req.user.id.sub;
-    const moviment_id = req.params.id;
+    const message = await movimentRemove.execute(
+      req.params.id,
+      req.user.id.sub,
+    );
 
-    const finance = await movimentRemove.execute(user_id, moviment_id);
+    if (message) return res.json(message);
 
-    return res.json(finance);
+    return res.status(200).send();
   }
 }
 
