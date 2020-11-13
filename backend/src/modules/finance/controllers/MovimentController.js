@@ -58,8 +58,6 @@ class MovimentController {
 
     const finance = await movimentRemove.execute(user_id, moviment_id);
 
-    // if (!finance) return res.json({ error: 'Error when deleting moviment' });
-
     return res.json(finance);
   }
 }

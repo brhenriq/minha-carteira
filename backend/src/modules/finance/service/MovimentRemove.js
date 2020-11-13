@@ -9,6 +9,11 @@ class MovimentRemove {
       moviment_id,
     );
 
+    if (!moviment) return { mesage: 'error deleting the moviment' };
+
+    if (moviment.result.n !== 1)
+      return { mesage: "you don't have permission to delete this moviment" };
+
     return moviment;
   }
 }
