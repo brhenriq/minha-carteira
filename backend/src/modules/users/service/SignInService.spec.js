@@ -1,5 +1,6 @@
 const UsersRepositoryFake = require('../repositories/UsersRepositoryFake');
 const HashProvider = require('../providers/HashProvider/model/HashProviderModel');
+const JwtTokwnModel = require('../providers/TokenProvider/model/jwtTokwnModel');
 const SignInService = require('./SignInService');
 
 describe('SignInService', () => {
@@ -11,9 +12,15 @@ describe('SignInService', () => {
 
     const usersRepositoryFake = new UsersRepositoryFake();
     const hashProvider = new HashProvider();
-    const signInService = new SignInService(usersRepositoryFake, hashProvider);
+    const jwtTokwnModel = new JwtTokwnModel();
 
-    const user = await signInService.execute(data);
+    const signInService = new SignInService(
+      usersRepositoryFake,
+      hashProvider,
+      jwtTokwnModel,
+    );
+
+    const { user } = await signInService.execute(data);
 
     expect(user).toHaveProperty('id');
   });

@@ -1,7 +1,8 @@
 class SignInService {
-  constructor(usersRepository, cryptProvider) {
+  constructor(usersRepository, cryptProvider, tokenProvider) {
     this.usersRepository = usersRepository;
     this.cryptProvider = cryptProvider;
+    this.tokenPrivider = tokenProvider;
   }
 
   async execute(data) {
@@ -20,7 +21,12 @@ class SignInService {
 
     delete user.password;
 
-    return user;
+    const token = this.tokenPrivider.genarate(user.id);
+
+    return {
+      user,
+      token,
+    };
   }
 }
 

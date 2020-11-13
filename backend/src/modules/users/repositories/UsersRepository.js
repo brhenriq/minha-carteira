@@ -21,12 +21,9 @@ class UsersRepository {
   }
 
   async findByEmail(email) {
-    const user = await mongo
-      .collection('users')
-      .findOne({ email })
-      .then(result => {
-        return result;
-      });
+    const user = await mongo.collection('users').findOne({ email });
+
+    if (!user) return undefined;
 
     const userFormatted = {
       id: user._id,
