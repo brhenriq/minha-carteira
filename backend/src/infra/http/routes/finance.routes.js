@@ -1,10 +1,15 @@
 const { Router } = require('express');
-const entryController = require('../../../modules/finance/controllers/MovimentController');
+const movimentController = require('../../../modules/finance/controllers/MovimentController');
 const authenticatted = require('../middlewares/authenticatted');
 
 const financeRoutes = Router();
 
-financeRoutes.post('/moviment', authenticatted, entryController.create);
-financeRoutes.delete('/moviment/:id', authenticatted, entryController.delete);
+financeRoutes.post('/moviment', authenticatted, movimentController.create);
+financeRoutes.get('/moviment', authenticatted, movimentController.index);
+financeRoutes.delete(
+  '/moviment/:id',
+  authenticatted,
+  movimentController.delete,
+);
 
 module.exports = financeRoutes;
