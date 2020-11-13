@@ -7,7 +7,7 @@ class MovimentShow {
     const moviment = await this.financeRepository.movimentById(moviment_id);
 
     if (moviment.user_id !== user_id)
-      return { mesage: "you don't have permission to shoq this moviment" };
+      return { mesage: "you don't have permission to show this moviment" };
 
     return moviment;
   }
